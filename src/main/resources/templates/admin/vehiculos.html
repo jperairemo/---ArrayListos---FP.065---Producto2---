@@ -12,32 +12,55 @@
   'vehiculos',
   ~{::content}
 )}">
+
     <section th:fragment="content">
         <div class="card">
-            <div class="card-header">
+            <!-- Cabecera con título y botón Añadir -->
+            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <h3>Vehículos</h3>
-                <button class="btn-primary small">+ Añadir</button>
+                <a th:href="@{/admin/vehiculos/nuevo}" class="btn-primary small">+ Añadir</a>
             </div>
+
+            <!-- Tabla de vehículos -->
             <table class="table">
                 <thead>
                 <tr>
-                    <th>ID</th><th>Marca</th><th>Modelo</th>
-                    <th>Matrícula</th><th>Tipo</th><th>Precio</th>
-                    <th>Estado</th><th>Acciones</th>
+                    <th>ID</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Matrícula</th>
+                    <th>Tipo</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="v : ${items}">
-                    <td th:text="${v.id}">1</td>
-                    <td th:text="${v.marca}">BMW</td>
-                    <td th:text="${v.modelo}">Serie 3</td>
-                    <td th:text="${v.matricula}">1234ABC</td>
-                    <td th:text="${v.tipo}">Sedán</td>
-                    <td th:text="${v.precioDia != null ? v.precioDia + ' €/día' : '-'}">45 €/día</td>
-                    <td><span class="badge" th:text="${v.disponible ? 'Disponible' : 'Alquilado'}">Disponible</span></td>
+                    <td th:text="${v.id}"></td>
+                    <td th:text="${v.marca}"></td>
+                    <td th:text="${v.modelo}"></td>
+                    <td th:text="${v.matricula}"></td>
+                    <td th:text="${v.tipo}"></td>
+                    <td th:text="${v.precioDia != null ? v.precioDia + ' €/día' : '-'}"></td>
+                    <td>
+                        <span class="badge"
+                              th:text="${v.disponible ? 'Disponible' : 'Alquilado'}"
+                              th:classappend="${v.disponible} ? ' bg-success' : ' bg-secondary'">
+                        </span>
+                    </td>
                     <td class="actions">
-                        <button class="icon edit">✏️</button>
-                        <button class="icon delete">🗑️</button>
+                        <a th:href="@{'/admin/vehiculos/editar/' + ${v.id}}"
+                           class="icon edit"
+                           title="Editar">✏️</a>
+
+                        <form th:action="@{'/admin/vehiculos/eliminar/' + ${v.id}}"
+                              method="post"
+                              style="display:inline">
+                            <button type="submit"
+                                    class="icon delete"
+                                    title="Eliminar">🗑️</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

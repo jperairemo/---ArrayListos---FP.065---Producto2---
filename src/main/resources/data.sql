@@ -29,3 +29,19 @@ insert into alquiler_extra (alquiler_id, extra_id) values
 (1,1),(1,3),
 (2,2),
 (3,4);
+
+-- ============================================
+-- AJUSTAR LOS CONTADORES DE AUTOINCREMENTO
+-- ============================================
+
+-- Cliente: ya hemos insertado id 1,2,3 → que el próximo sea 4
+ALTER TABLE cliente ALTER COLUMN id RESTART WITH 4;
+
+-- Vehículo: ya hemos insertado id 1,2,3,4 → que el próximo sea 5
+ALTER TABLE vehiculo ALTER COLUMN id RESTART WITH 5;
+
+-- Extra: ya hemos insertado id 1,2,3,4 → que el próximo sea 5
+ALTER TABLE extra ALTER COLUMN id RESTART WITH 5;
+
+-- Alquiler: ya hemos insertado id 1,2,3 → que el próximo sea 4
+ALTER TABLE alquiler ALTER COLUMN id RESTART WITH 4;

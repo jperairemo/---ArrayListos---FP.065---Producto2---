@@ -12,36 +12,74 @@
   'alquileres',
   ~{::content}
 )}">
+
     <section th:fragment="content">
         <div class="card">
-            <div class="card-header">
-                <h3>Alquileres</h3>
-                <button class="btn-primary small">+ Añadir</button>
+
+            <!-- Cabecera -->
+            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h3>Alquileres</h3>
+                    <p style="font-size: 0.9rem; color: #666; margin-top: 4px;">
+                        Consulta el historial, estado y gestiona los alquileres.
+                    </p>
+                </div>
+
+                <!-- Botón añadir -->
+                <a th:href="@{/admin/alquileres/nuevo}" class="btn-primary small">+ Añadir</a>
             </div>
+
+            <!-- Tabla -->
             <table class="table">
                 <thead>
                 <tr>
-                    <th>ID</th><th>Cliente</th><th>Vehículo</th>
-                    <th>Inicio</th><th>Fin</th><th>Total</th>
-                    <th>Estado</th><th>Acciones</th>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Vehículo</th>
+                    <th>Inicio</th>
+                    <th>Fin</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Extras</th>
+                    <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="a : ${items}">
-                    <td th:text="${a.id}">1</td>
-                    <td th:text="${a.cliente != null ? a.cliente.nombre : '-'}">Juan</td>
-                    <td th:text="${a.vehiculo != null ? a.vehiculo.marca + ' ' + a.vehiculo.modelo : '-'}">BMW Serie 3</td>
-                    <td th:text="${a.fechaInicio}">2025-10-20</td>
-                    <td th:text="${a.fechaFin}">2025-10-25</td>
-                    <td th:text="${a.precioTotal != null ? a.precioTotal + ' €' : '-'}">225 €</td>
-                    <td><span class="badge" th:text="${a.estado}">Activo</span></td>
+                    <td th:text="${a.id}"></td>
+                    <td th:text="${a.cliente != null ? a.cliente.nombre + ' ' + a.cliente.apellidos : '-'}"></td>
+                    <td th:text="${a.vehiculo != null ? a.vehiculo.marca + ' ' + a.vehiculo.modelo + ' (' + a.vehiculo.matricula + ')' : '-'}"></td>
+                    <td th:text="${a.fechaInicio}"></td>
+                    <td th:text="${a.fechaFin}"></td>
+                    <td th:text="${a.precioTotal != null ? a.precioTotal + ' €' : '-'}"></td>
+                    <td>
+                        <span class="badge"
+                              th:text="${a.estado != null ? a.estado : 'Sin estado'}"
+                              th:classappend="${a.estado == 'Activo'} ? ' bg-success'
+                                              : (${a.estado == 'Completado'} ? ' bg-secondary' : ' bg-warning')">
+                        </span>
+                    </td>
+                    <td>
+                        <!-- mostramos cuántos extras lleva -->
+                        <span th:text="${#lists.size(a.extras)} + ' extra(s)'"></span>
+                    </td>
                     <td class="actions">
-                        <button class="icon edit">✏️</button>
-                        <button class="icon delete">🗑️</button>
+                        <a th:href="@{'/admin/alquileres/editar/' + ${a.id}}"
+                           class="icon edit"
+                           title="Editar">✏️</a>
+
+                        <form th:action="@{'/admin/alquileres/eliminar/' + ${a.id}}"
+                              method="post"
+                              style="display:inline">
+                            <button type="submit"
+                                    class="icon delete"
+                                    title="Eliminar">🗑️</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>
             </table>
+
         </div>
     </section>
 </th:block>

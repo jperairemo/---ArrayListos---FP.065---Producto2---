@@ -12,24 +12,39 @@
   'extras',
   ~{::content}
 )}">
+
     <section th:fragment="content">
         <div class="card">
-            <div class="card-header">
+
+            <!-- Cabecera con título y botón Añadir -->
+            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <h3>Extras</h3>
-                <button class="btn-primary small">+ Añadir</button>
+                <a th:href="@{/admin/extras/nuevo}" class="btn-primary small">+ Añadir</a>
             </div>
+
+            <!-- Tabla de extras -->
             <table class="table">
                 <thead>
-                <tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Acciones</th></tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
                 </thead>
                 <tbody>
                 <tr th:each="e : ${items}">
-                    <td th:text="${e.id}">1</td>
-                    <td th:text="${e.nombre}">GPS</td>
-                    <td th:text="${e.precio != null ? e.precio + ' €/día' : '-'}">5 €/día</td>
+                    <td th:text="${e.id}"></td>
+                    <td th:text="${e.nombre}"></td>
+                    <td th:text="${e.precio != null ? e.precio + ' €/día' : '-'}"></td>
                     <td class="actions">
-                        <button class="icon edit">✏️</button>
-                        <button class="icon delete">🗑️</button>
+                        <a th:href="@{'/admin/extras/editar/' + ${e.id}}" class="icon edit" title="Editar">✏️</a>
+
+                        <form th:action="@{'/admin/extras/eliminar/' + ${e.id}}"
+                              method="post"
+                              style="display:inline">
+                            <button type="submit" class="icon delete" title="Eliminar">🗑️</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

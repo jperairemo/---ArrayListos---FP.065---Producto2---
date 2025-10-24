@@ -12,6 +12,6 @@ public class Vehiculo {
     private String marca;
     private String modelo;
     private String tipo;
-    private Double PrecioDia;
+    private Double precioDia;
     private boolean disponible = true;
 }
