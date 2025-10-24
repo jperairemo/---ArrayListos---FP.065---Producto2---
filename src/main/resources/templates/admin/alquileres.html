@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Alquileres</title>
+</head>
+<body>
+
+<th:block th:replace="~{layout :: layout(
+  'Bienvenido al panel de administración',
+  'Gestión de alquileres',
+  'alquileres',
+  ~{::content}
+)}">
+    <section th:fragment="content">
+        <div class="card">
+            <div class="card-header">
+                <h3>Alquileres</h3>
+                <button class="btn-primary small">+ Añadir</button>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th><th>Cliente</th><th>Vehículo</th>
+                    <th>Inicio</th><th>Fin</th><th>Total</th>
+                    <th>Estado</th><th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="a : ${items}">
+                    <td th:text="${a.id}">1</td>
+                    <td th:text="${a.cliente != null ? a.cliente.nombre : '-'}">Juan</td>
+                    <td th:text="${a.vehiculo != null ? a.vehiculo.marca + ' ' + a.vehiculo.modelo : '-'}">BMW Serie 3</td>
+                    <td th:text="${a.fechaInicio}">2025-10-20</td>
+                    <td th:text="${a.fechaFin}">2025-10-25</td>
+                    <td th:text="${a.precioTotal != null ? a.precioTotal + ' €' : '-'}">225 €</td>
+                    <td><span class="badge" th:text="${a.estado}">Activo</span></td>
+                    <td class="actions">
+                        <button class="icon edit">✏️</button>
+                        <button class="icon delete">🗑️</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</th:block>
+
+</body>
+</html>

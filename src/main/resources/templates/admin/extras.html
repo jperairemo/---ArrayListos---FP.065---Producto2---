@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Extras</title>
+</head>
+<body>
+
+<th:block th:replace="~{layout :: layout(
+  'Bienvenido al panel de administración',
+  'Gestión de extras',
+  'extras',
+  ~{::content}
+)}">
+    <section th:fragment="content">
+        <div class="card">
+            <div class="card-header">
+                <h3>Extras</h3>
+                <button class="btn-primary small">+ Añadir</button>
+            </div>
+            <table class="table">
+                <thead>
+                <tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Acciones</th></tr>
+                </thead>
+                <tbody>
+                <tr th:each="e : ${items}">
+                    <td th:text="${e.id}">1</td>
+                    <td th:text="${e.nombre}">GPS</td>
+                    <td th:text="${e.precio != null ? e.precio + ' €/día' : '-'}">5 €/día</td>
+                    <td class="actions">
+                        <button class="icon edit">✏️</button>
+                        <button class="icon delete">🗑️</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</th:block>
+
+</body>
+</html>
