@@ -17,6 +17,7 @@ public class AdminController {
         this.clienteRepo = c; this.vehiculoRepo = v; this.extraRepo = e; this.alquilerRepo = a;
     }
 
+
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         model.addAttribute("titulo","Bienvenido al panel de administración");
