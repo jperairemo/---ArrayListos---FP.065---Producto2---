@@ -3,7 +3,7 @@ services:
     image: mysql:8.0
     container_name: mysql-alquila
     environment:
-      MYSQL_ROOT_PASSWORD: TU_PASS   # <- cambia esto
+      MYSQL_ROOT_PASSWORD: arraylistos
       MYSQL_DATABASE: alquilatusvehiculos
       TZ: UTC
     ports:
