@@ -53,14 +53,17 @@
                     <td th:text="${a.fechaFin}"></td>
                     <td th:text="${a.precioTotal != null ? a.precioTotal + ' €' : '-'}"></td>
                     <td>
-                        <span class="badge"
-                              th:text="${a.estado != null ? a.estado : 'Sin estado'}"
-                              th:classappend="${a.estado == 'Activo'} ? ' bg-success'
-                                              : (${a.estado == 'Completado'} ? ' bg-secondary' : ' bg-warning')">
-                        </span>
+                      <span class="badge"
+                            th:text="${a.estado != null ? a.estado : 'Sin estado'}"
+                            th:classappend="${
+                                #strings.equalsIgnoreCase(a.estado, 'Activo') ? ' badge-success' :
+                                (#strings.equalsIgnoreCase(a.estado, 'Completado') ? ' badge-info' : '')
+                            }">
+                      </span>
                     </td>
-                    <td>
-                        <!-- mostramos cuántos extras lleva -->
+
+
+                    <!-- mostramos cuántos extras lleva -->
                         <span th:text="${#lists.size(a.extras)} + ' extra(s)'"></span>
                     </td>
                     <td class="actions">

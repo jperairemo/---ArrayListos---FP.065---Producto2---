@@ -19,9 +19,8 @@ public class AdminController {
 
 
     @GetMapping("/dashboard")
-    public String dashboard(Model model) {
-        model.addAttribute("titulo","Bienvenido al panel de administración");
-        return "admin/dashboard";
+    public String dashboard() {
+        return "redirect:/admin/alquileres"; // o /admin/vehiculos
     }
 
     @GetMapping("/clientes")
